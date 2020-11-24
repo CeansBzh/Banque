@@ -58,4 +58,12 @@ class User extends Authenticatable
     protected $appends = [
         'profile_photo_url',
     ];
+
+    /**
+     * Get the character record associated with the user.
+     */
+    public function character()
+    {
+        return $this->hasOne('App\Models\Character');
+    }
 }
