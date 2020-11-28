@@ -2,13 +2,14 @@
 
 namespace App\Models;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Foundation\Auth\User as Authenticatable;
+use Laravel\Sanctum\HasApiTokens;
+use Laravel\Jetstream\HasProfilePhoto;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Fortify\TwoFactorAuthenticatable;
-use Laravel\Jetstream\HasProfilePhoto;
-use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\Relations\Relation;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
@@ -65,5 +66,20 @@ class User extends Authenticatable
     public function character()
     {
         return $this->hasOne('App\Models\Character');
+    }
+
+    /**
+     * Get all of the bank accounts for the user.
+     */
+    public function bankAccounts()
+    {
+        return $this->hasManyThrough(
+            'App\Models\BankAccount',
+            'App\Models\Character',
+            'user_id', // Foreign key on characters table...
+            'bank_accountable_id', // Foreign key on bank_accounts table...
+            'id', // Local key on users table...
+            'id' // Local key on characters table...
+        )->where('bank_accountable_type', 'App\Models\Character');
     }
 }

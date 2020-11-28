@@ -13,7 +13,7 @@ class Dashboard extends Component
 
         $transactionHistories = collect([]);
 
-        foreach ($user->character->bankAccounts()->with('transactionHistories')->get() as $bankAccount) {
+        foreach ($user->bankAccounts()->with('transactionHistories')->get() as $bankAccount) {
             foreach ($bankAccount->transactionHistories()->get() as $transactionHistory) {
                 $transactionHistories->prepend($transactionHistory);
             }

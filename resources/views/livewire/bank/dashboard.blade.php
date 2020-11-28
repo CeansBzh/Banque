@@ -7,10 +7,10 @@
 
     <div class="flex flex-wrap overflow-hidden p-3">
         <div class="w-full lg:w-2/5 overflow-hidden px-2 ">
-            <x-bank.home-panel :accounts="$user->character->bankAccounts" />
+            <x-bank.home-panel :accounts="$user->bankAccounts" />
         </div>
         <div class="w-full lg:w-3/5 px-2">
-            <x-bank.container :accounts="$user->character->bankAccounts">
+            <x-bank.container :accounts="$user->bankAccounts">
                 <x-slot name="header">
                     <x-bank.container-small-header>
                         {{ __('Weekly balance activity') }}
@@ -21,7 +21,7 @@
                     <div id="chart" style="height: 300px;"></div>
                 </x-slot>
             </x-bank.container>
-            <x-bank.container :accounts="$user->character->bankAccounts">
+            <x-bank.container :accounts="$user->bankAccounts">
                 <x-slot name="header">
                     <x-bank.container-small-header>
                         {{ __('Lastest transaction') }}
