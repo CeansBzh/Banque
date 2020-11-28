@@ -12,6 +12,10 @@ module.exports = {
             fontFamily: {
                 sans: ['Nunito', ...defaultTheme.fontFamily.sans],
             },
+            screens: {
+                light: { raw: "(prefers-color-scheme: light)" },
+                dark: { raw: "(prefers-color-scheme: dark)" }
+            }
         },
     },
 
@@ -19,5 +23,21 @@ module.exports = {
         opacity: ['responsive', 'hover', 'focus', 'disabled'],
     },
 
-    plugins: [require('@tailwindcss/ui')],
+    plugins: [
+        require('@tailwindcss/ui'),
+        function ({ addBase, config }) {
+            addBase({
+                body: {
+                    color: config("theme.colors.black"),
+                    backgroundColor: config("theme.colors.white")
+                },
+                "@screen dark": {
+                    body: {
+                        color: config("theme.colors.white"),
+                        backgroundColor: config("theme.colors.black")
+                    }
+                }
+            });
+        }
+    ],
 };
