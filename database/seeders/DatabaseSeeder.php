@@ -19,7 +19,8 @@ class DatabaseSeeder extends Seeder
             UserSeeder::class,
             CharacterSeeder::class,
             BankAccountSeeder::class,
-            TransactionHistorySeeder::class
+            TransactionHistorySeeder::class,
+            BalanceHistorySeeder::class
         ]);
     }
 }

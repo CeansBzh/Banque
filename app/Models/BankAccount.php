@@ -34,4 +34,12 @@ class BankAccount extends Model
     {
         return $this->hasMany('App\Models\TransactionHistory');
     }
+
+    /**
+     * Get the balance history for the bank account.
+     */
+    public function balanceHistories()
+    {
+        return $this->hasMany('App\Models\BalanceHistory');
+    }
 }
