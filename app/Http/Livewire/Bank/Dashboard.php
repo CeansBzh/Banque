@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Bank;
 
 use Livewire\Component;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
 
 class Dashboard extends Component
@@ -19,8 +20,10 @@ class Dashboard extends Component
             }
         }
 
-        $transactionHistories->sortBy('lastUpdated');
+        $transactionHistoriesSorted = array_reverse(array_values(Arr::sort($transactionHistories, function ($value) {
+            return $value['created_at'];
+        })));
 
-        return view('livewire.bank.dashboard', ['user' => $user, 'transactionHistories' => $transactionHistories])->layout('layouts.bank');
+        return view('livewire.bank.dashboard', ['user' => $user, 'transactionHistories' => $transactionHistoriesSorted])->layout('layouts.bank');
     }
 }
