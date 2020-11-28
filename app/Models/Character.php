@@ -30,4 +30,12 @@ class Character extends Model
     {
         return $this->belongsTo('App\Models\User');
     }
+
+    /**
+     * Get all of the character's bank accounts.
+     */
+    public function bankAccounts()
+    {
+        return $this->morphMany('App\Models\BankAccount', 'bank_accountable');
+    }
 }
