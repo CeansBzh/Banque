@@ -17,19 +17,18 @@
                     </x-bank.container-small-header>
                 </x-slot>
                 <x-slot name="content">
-                    <!-- Chart's container -->
-                    <div id="chart" style="height: 300px;"></div>
+                    <p>Graphique d'activité</p>
                 </x-slot>
             </x-bank.container>
             <x-bank.container :accounts="$user->bankAccounts">
                 <x-slot name="header">
                     <x-bank.container-small-header>
-                        {{ __('Lastest transaction') }}
+                        {{ __('Latest transactions') }}
                     </x-bank.container-small-header>
                 </x-slot>
                 <x-slot name="content">
                     <table class="table-auto w-full">
-                        <caption class="sr-only">{{ __('Lastest transaction') }}</caption>
+                        <caption class="sr-only">{{ __('Latest transactions') }}</caption>
                         <thead class="sr-only">
                             <tr>
                                 <th scope="col">{{ __('Date') }}</th>
@@ -41,9 +40,10 @@
                             @forelse ($transactionHistories as $i => $transaction)
                             @php $class = ($i % 2 === 0 ? '' : 'bg-gray-100 dark:bg-gray-700'); @endphp
                             <tr class="{{ $class }}">
-                                <td class="px-3 py-1">{{ date('d / m', strtotime($transaction->lastUpdated)) }}</td>
-                                <td class="px-3 py-1">{{ \Illuminate\Support\Str::after($transaction->text, ':') }}</td>
-                                <td class="px-3 py-1 text-right">@euroFormatWithSign(floatval(\Illuminate\Support\Str::beforeLast(\Illuminate\Support\Str::after($transaction->text, '>'), '<')))</td> </tr> @empty <tr>
+                                <td class="px-3 py-1">{{ date('d / m', strtotime($transaction->created_at)) }}</td>
+                                <td class="px-3 py-1">{{ $transaction->message }}</td>
+                                <td class="px-3 py-1 text-right">@euroFormatWithSign($transaction->amount)</td>
+                            </tr> @empty <tr>
                                 <td>- / -</td>
                                 <td>{{ __('No transaction has been registered yet') }}</td>
                                 <td>x,xx e</td>
