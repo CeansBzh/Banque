@@ -1,18 +1,27 @@
 <?php
 
-namespace App\View\Components;
+namespace App\Http\Livewire\Bank;
 
-use Illuminate\View\Component;
+use Livewire\Component;
+use Illuminate\Support\Facades\Auth;
 
-class BankLayout extends Component
+class Dashboard extends Component
 {
-    /**
-     * Get the view / contents that represents the component.
-     *
-     * @return \Illuminate\View\View
-     */
     public function render()
     {
-        return view('layouts.bank');
+        $user = Auth::user();
+        $user->load('bankAccounts.transactionHistories');
+
+        $transactionHistories = collect([]);
+
+        foreach ($user->bankAccounts()->with('transactionHistories')->get() as $bankAccount) {
+            foreach ($bankAccount->transactionHistories()->get() as $transactionHistory) {
+                $transactionHistories->prepend($transactionHistory);
+            }
+        }
+
+        $transactionHistories->sortBy('lastUpdated');
+
+        return view('livewire.bank.dashboard', ['user' => $user, 'transactionHistories' => $transactionHistories])->layout('layouts.bank');
     }
 }
