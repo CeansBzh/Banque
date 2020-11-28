@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Livewire\Bank\Accounts;
 use App\Http\Livewire\Bank\Dashboard;
 use Illuminate\Support\Facades\Route;
 
@@ -24,4 +25,5 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     })->name('dashboard');
 
     Route::get('/bank', Dashboard::class)->name('bank.dashboard');
+    Route::get('/bank/{bankAccount}', Accounts::class)->name('bank.accounts');
 });
