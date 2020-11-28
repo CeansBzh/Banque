@@ -23,6 +23,18 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        Blade::directive('euroFormat', function ($amount) {
+            return "<?php echo number_format($amount, 2, ',', ' ') . ' €'; ?>";
+        });
+
+        Blade::directive('euroFormatWithSign', function ($amount) {
+            return "<?php 
+            if($amount >= 0) {
+                echo '+' . number_format($amount, 2, ',', ' ') . ' €';
+            } else {
+                echo number_format($amount, 2, ',', ' ') . ' €';
+            }
+            ?>";
+        });
     }
 }
