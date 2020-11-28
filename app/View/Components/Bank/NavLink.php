@@ -1,19 +1,27 @@
 <?php
 
-namespace App\View\Components\Bank;
+namespace App\View\Components\bank;
 
 use Illuminate\View\Component;
 
 class NavLink extends Component
 {
     /**
-     * Create a new component instance.
+     * Status of the current nav link.
      *
+     * @var bool
+     */
+    public $active;
+
+    /**
+     * Create the component instance.
+     *
+     * @param  bool  $active
      * @return void
      */
-    public function __construct()
+    public function __construct($active)
     {
-        //
+        $this->active = $active;
     }
 
     /**
