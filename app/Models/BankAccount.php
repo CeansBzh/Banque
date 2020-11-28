@@ -42,4 +42,14 @@ class BankAccount extends Model
     {
         return $this->hasMany('App\Models\BalanceHistory');
     }
+
+    /**
+     * Get the amount of money of the last transaction.
+     *
+     * @return int
+     */
+    public function lastTransactionAmount()
+    {
+        return $this->transactionHistories()->latest()->value('amount');
+    }
 }
