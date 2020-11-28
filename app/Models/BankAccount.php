@@ -22,8 +22,16 @@ class BankAccount extends Model
     /**
      * Get the owning bank_accountable model.
      */
-    public function bank_accountable()
+    public function bankAccountable()
     {
         return $this->morphTo();
+    }
+
+    /**
+     * Get the transaction history for the bank account.
+     */
+    public function transactionHistories()
+    {
+        return $this->hasMany('App\Models\TransactionHistory');
     }
 }
